@@ -17,11 +17,10 @@ const authRouter = require("./routers/auth");
 const uploadRouter = require("./routers/upload");
 const facebookRouter = require("./routers/facebook");
 
-const { postLoginFacebook } = require("./routers/facebook");
 const { facebookAuth } = require("./Helpers/auth");
 
 const app = express();
-const port = config.get("port");
+const port = process.env.PORT || config.get("port");
 
 passport.use(
   "facebookToken",
