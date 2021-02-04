@@ -18,9 +18,7 @@ const upload = multer({
 
 router.post("/upload/file", upload.single("data"), async (req, res) => {
   console.log(path.join(req.headers.host, "image", req.file.filename));
-  res.send(
-    path.join(req.protocol, req.headers.host, "image", req.file.filename)
-  );
+  res.send(path.join(req.headers.host, "image", req.file.filename));
 });
 
 router.post(
