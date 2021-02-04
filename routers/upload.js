@@ -19,7 +19,8 @@ const upload = multer({
 router.post("/upload/file", upload.single("data"), async (req, res) => {
   console.log(path.join(req.headers.host, "image", req.file.filename));
   res.send(
-    "https://" + path.join(req.headers.host, "image", req.file.filename)
+    `${process.env.PORT ? "https" : "http"}://` +
+      path.join(req.headers.host, "image", req.file.filename)
   );
 });
 
@@ -27,6 +28,7 @@ router.post(
   "/upload/avatar",
   auth(),
   upload.single("data"),
+  // coi lại cách sử lý hình ảnh trên mạng. Code dưới đây sai rồi. Save kiểu này thì sao mà Frondend lấy hình
   async (req, res) => {
     const { path } = req.file;
     req.user.avatar = path;
