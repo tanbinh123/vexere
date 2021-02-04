@@ -1,6 +1,7 @@
 const multer = require("multer");
 const express = require("express");
 const { auth } = require("../Helpers/auth");
+const path = require("path");
 
 const router = express.Router();
 
@@ -16,8 +17,8 @@ const upload = multer({
 });
 
 router.post("/upload/file", upload.single("data"), async (req, res) => {
-  console.log(req.file);
-  res.send();
+  console.log(path.join(__dirname, req.file.path));
+  res.send({ message: path.join(__dirname, req.file.path) });
 });
 
 router.post(
