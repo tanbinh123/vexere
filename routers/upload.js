@@ -25,7 +25,6 @@ router.post(
   "/upload/avatar",
   auth(),
   upload.single("data"),
-  // coi lại cách sử lý hình ảnh trên mạng. Code dưới đây sai rồi. Save kiểu này thì sao mà Frondend lấy hình
   async (req, res) => {
     req.user.avatar =
       "http://" + path.join(req.headers.host, "image", req.file.filename);
