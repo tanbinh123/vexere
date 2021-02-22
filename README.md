@@ -1,3 +1,3 @@
 # Project Vexere Clone (backend)
 
-APIs for Vexere Clone
+APIs ready for Vexere Clone Project
