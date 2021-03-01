@@ -11,8 +11,8 @@ const postLoginFacebook = async (req, res) => {
       jwtSignature
     );
     req.user.tokens.push(token);
-    const result = await req.user.save();
-    res.send(result);
+    await req.user.save();
+    res.send(token);
   } catch (error) {
     console.log(error);
   }

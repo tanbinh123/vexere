@@ -1,7 +1,7 @@
 const multer = require("multer");
 const express = require("express");
 const { auth } = require("../Helpers/auth");
-const path = require("path");
+const { uploadFile, uploadAvatar } = require("../controllers/upload");
 
 const router = express.Router();
 
@@ -10,27 +10,14 @@ const upload = multer({
   storage: multer.diskStorage({
     destination: "images",
     filename(req, file, done) {
-      const name = Date.now() + "-" + file.originalname;
+      const name = Date.now() + "-" + file.originalname.replace(" ", "-");
       done(null, name);
     },
   }),
 });
 
-router.post("/upload/file", upload.single("data"), async (req, res) => {
-  console.log(req.file);
-  res.send("http://" + path.join(req.headers.host, "image", req.file.filename));
-});
+router.post("/upload/file", upload.single("data"), uploadFile);
 
-router.post(
-  "/upload/avatar",
-  auth(),
-  upload.single("data"),
-  async (req, res) => {
-    req.user.avatar =
-      "http://" + path.join(req.headers.host, "image", req.file.filename);
-    const result = await req.user.save();
-    res.send(result);
-  }
-);
+router.post("/upload/avatar", auth(), upload.single("data"), uploadAvatar);
 
 module.exports = router;

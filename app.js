@@ -6,7 +6,6 @@ const passport = require("passport");
 const passportStrategy = require("passport-facebook-token");
 const cors = require("cors");
 
-// package để xây dựng đường dẫn
 const path = require("path");
 
 const tripRouter = require("./routers/trip");
@@ -32,20 +31,6 @@ passport.use(
     facebookAuth()
   )
 );
-
-// đi từ trên xuống dưới, nên nếu để func use ko có đường dẫn này ở đầu thì tất cả req đều phải đi qua middleware này
-// app.use((req, res, next) => {
-//   console.log("middleware chung");
-//   // check authentication, role
-//   // nếu chưa login
-
-//   // nếu chưa login
-//   //   if (true) {
-//   //     res.send("Vui lòng đăng nhập");
-//   //   } else {
-//   //     next();
-//   //   }
-// });
 
 /**
  * TODO

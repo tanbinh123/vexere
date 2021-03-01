@@ -36,7 +36,33 @@ const deleteStation = async (req, res) => {
   }
 };
 
+const getStation = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    const foundedStation = await Station.findById(id);
+    if (!foundedStation)
+      return res.status(400).send({ message: "Invalid station" });
+
+    res.send(foundedStation);
+  } catch (error) {
+    res.status(500).send({ message: "Backend sucks" });
+  }
+};
+
+const getAllStation = async (req, res) => {
+  try {
+    const listStation = await Station.find();
+
+    res.send(listStation);
+  } catch (error) {
+    res.status(500).send({ message: "Backend sucks" });
+  }
+};
+
 module.exports = {
   postStation,
   deleteStation,
+  getStation,
+  getAllStation,
 };

@@ -57,8 +57,35 @@ const deleteCar = async (req, res) => {
   }
 };
 
+const getAllCar = async (req, res) => {
+  try {
+    const listCar = await Car.find().populate(
+      "branch",
+      "status name hotline address code"
+    );
+    res.send(listCar);
+  } catch (error) {
+    res.status(500).send({ message: "Backend sucks" });
+  }
+};
+
+const getCar = async (req, res) => {
+  try {
+    let { id } = req.query;
+
+    const foundedCar = await Car.findById(id);
+    if (!foundedCar) return res.status(400).send({ message: "Invalid car" });
+
+    res.send(foundedCar);
+  } catch (error) {
+    res.status(500).send({ message: "Backend sucks" });
+  }
+};
+
 module.exports = {
   postCar,
   putCar,
   deleteCar,
+  getAllCar,
+  getCar,
 };

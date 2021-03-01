@@ -6,20 +6,17 @@ const {
   deleteTrip,
   getTrip,
   postTrip,
+  getAllTrip,
 } = require("../controllers/trip");
-const Trip = require("../models/trip");
 
 router.post("/trip", auth(["admin"]), postTrip);
 
-router.get("/trip", auth(), getTrip);
+router.get("/trip", getTrip);
 
 router.delete("/trip", auth(["admin"]), deleteTrip);
 
 router.post("/trip/booking", auth(), postBookingTrip);
 
-router.get("/all-trip", async (req, res) => {
-  const trips = await Trip.find();
-  res.send(trips);
-});
+router.get("/all-trip", getAllTrip);
 
 module.exports = router;

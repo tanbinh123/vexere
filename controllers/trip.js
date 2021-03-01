@@ -80,14 +80,16 @@ const deleteTrip = async (req, res) => {
 const getTrip = async (req, res) => {
   let { departurePlace, arrivalPlace, startedDate } = req.query;
 
+  let condition = { departurePlace, arrivalPlace, startedDate };
+
+  for (const i in condition) {
+    if (!condition[i]) delete condition[i];
+  }
+
   // startedDate = startedDate + " 00:00:00";
   // console.log(departurePlace, arrivalPlace, startedDate);
   try {
-    const foundedTrips = await Trip.find({
-      departurePlace,
-      arrivalPlace,
-      startedDate,
-    }).populate(
+    const foundedTrips = await Trip.find(condition).populate(
       "departurePlace arrivalPlace carId",
       "name address licensePlate"
     );
@@ -96,6 +98,11 @@ const getTrip = async (req, res) => {
   } catch (error) {
     res.status(500).send({ message: "Backend sucks" });
   }
+};
+
+const getAllTrip = async (req, res) => {
+  const trips = await Trip.find();
+  res.send(trips);
 };
 
 const postTrip = async (req, res) => {
@@ -154,4 +161,5 @@ module.exports = {
   deleteTrip,
   getTrip,
   postTrip,
+  getAllTrip,
 };

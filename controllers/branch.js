@@ -40,7 +40,32 @@ const deleteBranch = async (req, res) => {
   }
 };
 
+const getBranch = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const foundedBranch = await Branch.findById(id);
+    if (!foundedBranch)
+      return res.status(404).send({ message: "Branch not founded!" });
+
+    res.send(foundedBranch);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
+const getAllBranch = async (req, res) => {
+  try {
+    const listBranch = await Branch.find();
+
+    res.send(listBranch);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
 module.exports = {
   postBranch,
   deleteBranch,
+  getBranch,
+  getAllBranch,
 };
