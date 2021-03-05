@@ -54,7 +54,7 @@ passport.use(
 
 app.use(
   cors({
-    origin: "http://localhost:5500",
+    origin: "http://localhost:8080",
     optionsSuccessStatus: 200,
   })
 );
