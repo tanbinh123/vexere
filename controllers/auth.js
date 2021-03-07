@@ -99,6 +99,9 @@ const postSignin = async (req, res) => {
     const token = await jwt.sign(
       {
         _id: foundedUser._id,
+        username: foundedUser.username,
+        email: foundedUser.email,
+        role: foundedUser.role,
       },
       jwtSignature
     );
