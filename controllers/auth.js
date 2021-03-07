@@ -99,14 +99,14 @@ const postSignin = async (req, res) => {
     const token = await jwt.sign(
       {
         _id: foundedUser._id,
-        username: foundedUser.username,
         email: foundedUser.email,
         role: foundedUser.role,
       },
-      jwtSignature
+      jwtSignature,
+      { expiresIn: 86400 }
     );
     foundedUser.tokens.push(token);
-    await foundedUser.save();
+    await foundedUser.save({ message: "Login successfully.", token });
 
     // send result
 
