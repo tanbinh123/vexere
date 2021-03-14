@@ -106,7 +106,7 @@ const postSignin = async (req, res) => {
       { expiresIn: 86400 }
     );
     foundedUser.tokens.push(token);
-    await foundedUser.save({ message: "Login successfully.", token });
+    await foundedUser.save();
 
     // send result
 
@@ -114,7 +114,7 @@ const postSignin = async (req, res) => {
     // delete result.password;
 
     // send token về cho frondend
-    res.send(token);
+    res.send({ message: "Login successfully.", token });
   } catch (error) {}
 };
 
