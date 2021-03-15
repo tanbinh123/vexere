@@ -8,6 +8,7 @@ const jwtSignature = config.get("jwtSignature");
 const auth = (roles) => async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
+    // Nếu token hết hạng thì sẽ throw error
     const decoded = await jwt.verify(token, jwtSignature);
     // Nếu có truyền roles thì lấy roles, còn ko truyền roles thì sẽ là tất cả role
     const allowRoles = roles || ["admin", "user"];
