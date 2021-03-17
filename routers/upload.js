@@ -10,7 +10,7 @@ const upload = multer({
   storage: multer.diskStorage({
     destination: "images",
     filename(req, file, done) {
-      const name = Date.now() + "-" + file.originalname.replace(" ", "-");
+      const name = Date.now() + "-" + file.originalname.replace(/ /g, "-");
       done(null, name);
     },
   }),
